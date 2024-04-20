@@ -1,0 +1,91 @@
+#! /usr/bin/python3
+"""Python script to only allow commits from non-generic authors.
+
+This hopefully fixes the issue that we previously had where people would commit as "Control",
+which wasn't traceable to them.
+
+This hook is automatically called when a commit happens, and checks the commit author
+against a blacklist of banned names.
+
+For setup, this should be linked into euriqa-artiq/.git/hooks/pre-commit:
+Use ./linux-setup/setup-symlinks.py to do this for you, or manually:
+``$ ln -s ./scripts/pre-commit ./.git/hooks/pre-commit``.
+
+This makes a point to use only python version-independent functions &
+the built-in system libraries ONLY.
+"""
+import distutils.util
+import os
+import pathlib
+import sys
+import textwrap
+
+BLACKLIST_NAMES = {"euriqa", "umd", "control", "root", "none"}
+BLACKLIST_EMAILS = {"localhost", "root", "euriqa", "none"}
+
+
+def main():
+    # Get git commit author variables. Auto-populated by commit --author or env var
+    commit_author = os.getenv("GIT_AUTHOR_NAME")
+    commit_email = os.getenv("GIT_AUTHOR_EMAIL")
+
+    # Check that the environment variable was present
+    if commit_author is None or commit_email is None:
+        raise ValueError(
+            "Git author environment variables not present. "
+            "This should be run by git commit."
+        )
+    else:
+        print("Commit Author: '{} <{}>'".format(commit_author, commit_email))
+
+    # Check that the commit name/email isn't blacklisted.
+    # If they do match, error
+    try:
+        for forbidden_name in BLACKLIST_NAMES:
+            if forbidden_name.lower() in commit_author.lower():
+                sys.exit(
+                    "Forbidden commit name detected: name '{}' matches '{}'".format(
+                        commit_author, forbidden_name
+                    )
+                )
+
+        for forbidden_email in BLACKLIST_EMAILS:
+            if forbidden_email.lower() in commit_email.lower():
+                sys.exit(
+                    "Forbidden commit email detected: email '{}' matches '{}'".format(
+                        commit_email, forbidden_email
+                    )
+                )
+    except SystemExit as err:
+        # Print a user-friendly message
+        sys.exit(
+            textwrap.dedent(
+                """
+            ERROR: Invalid commit author name/email detected.
+            Please try to commit again, but with a valid name/email.
+            From the command line, you can use
+                'git commit --author="My Name <my@email.com>"'
+            You can create a shortcut for this with (in Fish Shell) e.g.:
+                $ alias -s mycommit='git commit --author="My Name <my@email.com>"'
+            Invalid names: {}
+            Invalid emails: {}
+            If needed, this functionality can be disabled by adding the flag
+            '--no-verify'. Example:
+                git commit --no-verify
+            or modifying/renaming this script:
+                {}
+
+            Exact ERROR:
+                {}
+            """.format(
+                    BLACKLIST_NAMES,
+                    BLACKLIST_EMAILS,
+                    pathlib.Path(__file__).resolve(),
+                    err,
+                )
+            )
+        )
+
+
+if __name__ == "__main__":
+    main()

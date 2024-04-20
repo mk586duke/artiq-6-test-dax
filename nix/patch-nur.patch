@@ -1,0 +1,65 @@
+diff --git a/pkgs/python-modules/qiskit-terra/default.nix b/pkgs/python-modules/qiskit-terra/default.nix
+index 5059853..b88d4ed 100644
+--- a/pkgs/python-modules/qiskit-terra/default.nix
++++ b/pkgs/python-modules/qiskit-terra/default.nix
+@@ -2,6 +2,7 @@
+ , pythonOlder
+ , buildPythonPackage
+ , fetchFromGitHub
++, fetchpatch
+   # Python requirements
+ , cython
+ , dill
+@@ -67,6 +68,14 @@ buildPythonPackage rec {
+     sha256 = "0007glsbrvq9swamvz8r76z9nzh46b388y0ds1dypczxpwlp9xcq";
+   };
+ 
++  patches = [
++    (fetchpatch {
++      name = "pr-8188-backport-speedup-compress_pulses.patch";
++      url = "https://github.com/drewrisinger/qiskit-terra/commit/57c90f312c28c6ae7416f35ff6c9e585ae992024.patch";
++      sha256 = "sha256-q5Dpd8Zhvp+Fb9MiP0G8E24W97E9JS4QqRLHkePrlcc=";
++    })
++  ];
++
+   nativeBuildInputs = [ cython ];
+ 
+   propagatedBuildInputs = [
+@@ -96,6 +105,7 @@ buildPythonPackage rec {
+     nbconvert
+   ] ++ lib.optionals (!withVisualization) visualizationPackages;
+   dontUseSetuptoolsCheck = true;  # can't find setup.py, so fails. tested by pytest
++  doCheck = false;
+ 
+   pythonImportsCheck = [
+     "qiskit"
+@@ -107,11 +117,16 @@ buildPythonPackage rec {
+     # These tests are nondeterministic and can randomly fail.
+     # We ignore them here for deterministic building.
+     "--ignore=test/randomized/"
++    "--ignore=test/python/visualization/test_gate_map.py"
++    "-v"
+   ] ++ lib.optionals (!withClassicalFunctionCompiler) [
+     # Fail with ImportError because tweedledum isn't installed
+     "--ignore=test/python/classical_function_compiler/"
+   ];
+   disabledTests = [
++    "test_sample_pulses_with_tolerance" # this isn't compatible with PR #8188, b/c tolerance requires equality check between Waveform(), when we use the hash (no tolerance).
++  ]
++  ++ [
+     # Flaky tests
+     "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
+     "test_cx_equivalence"  # Fails due to flaky test
+diff --git a/pkgs/python-modules/retworkx/default.nix b/pkgs/python-modules/retworkx/default.nix
+index 7b5c576..bd21388 100644
+--- a/pkgs/python-modules/retworkx/default.nix
++++ b/pkgs/python-modules/retworkx/default.nix
+@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
+   cargoSha256 = if
+     lib.versionOlder lib.trivial.release "20.09"
+     then "0pzcb74vdx8n7vw16gv90h0spr66p8p6700p4bw8f0dmxw1qn40s"
+-    else "1v25r2gvk11i4xc2yhj0bwv3asi8vbvhib6kp8za4p41n3w1yvma";
++    else "sha256-ox8NfE7yd3MEG7sWs2O4+881GMQLFUw69CQ82s76g/Y=";
+   legacyCargoFetcher = true;  # TODO: Remove on next nixos release. Cargo SHA mismatch b/w unstable & release.
+ 
+   src = fetchFromGitHub {

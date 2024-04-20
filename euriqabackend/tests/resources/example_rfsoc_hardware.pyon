@@ -1,0 +1,97 @@
+[
+    # Example
+    {
+        "index": 0,
+        "ip_address": "192.168.0.120",
+        "ip_port": 50052,
+        "has_global_output": True,
+        "global_output_first": True,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+        # All options for initializing the board.
+        # These are the default options, and are used for the unspecified board entries.
+        # You can specify any subset of these if you would like to change
+        # initialization behavior
+        "initialization_options": {
+            "enable_all_modulation": True,
+            "output_tones": {
+                "enable_all": True,
+                "sync_all": False,
+                "reset_all": True,
+                # Though the sync & feedback are disabled here for the "global"
+                # (i.e. GUI) settings,
+                # the appropriate sync & frequency feedback metadata are still applied
+                # to the pulse sequence words themselves.
+                "frequency_feedback_global": False,
+                "frequency_feedback_individuals": False,
+                "harmonic": 1,
+                "amplitude_scale": 1.0,
+            },
+            "frequency_feedback": {
+                "enable": True,
+                "setpoint_frequency": 0.0,
+                "nco_mixer_frequency": 0.0,
+                "phase_offset_rad": 0.0,
+                "gain_pid": {
+                    "proportional": 1000000,
+                    "integral": 2000,
+                    "derivative": 0,
+                },
+                "harmonic_divider": 2,
+                "threshold": {
+                    "lock_level": 26,
+                    "input_level": 22,
+                },
+            },
+            "ancilla": {
+                "hardware_enable_mask": 4095,
+                "hardware_shift": 7,
+                "soft_ancilla_value": 16
+            },
+            "delays": {
+                "tile_0_coarse": 0,
+                "tile_1_coarse": 0,
+                "gate_sequencer": 0,
+                "config": 0,
+                "clock_align": 0,
+                "ancilla_trigger": 0
+            },
+            "mts": {
+                "enable": True,
+                "target_latency": 0,
+                "match_max_latency": True,
+            },
+            "trigger_type": {
+                "apply_config": False,
+                "trigger_gate_sequence": True,
+                "reset_master_clock": False,
+                "trigger_ancillae": False,
+            }
+        },
+    },
+    {
+        "index": 1,
+        "ip_address": "192.168.0.121",
+        "ip_port": 50052,
+        "has_global_output": False,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+        # by not specifying "initialization_options", this will use the defaults, which are shown above
+    },
+    {
+        "index": 2,
+        "ip_address": "192.168.0.122",
+        "ip_port": 50052,
+        "has_global_output": False,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+    },
+    {
+        "index": 3,
+        "ip_address": "192.168.0.123",
+        "ip_port": 50052,
+        "has_global_output": False,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+    }
+]

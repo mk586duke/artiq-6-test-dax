@@ -1,0 +1,55 @@
+# This is designed to be run as a systemd service from an OS like Linux.
+# A basic overview is that it sets some Nix & system variables, then starts
+# artiq_influxdb using those
+# artiq_influxdb is responsible for pushing ARTIQ variables to the EURIQA InfluxDB server for tracking over time
+
+# *** NOTE ***
+# By default, this file is symlinked into the systemd configuration /etc/systemd/system/
+# If you modify this file, you will need to reload the configuration & restart the service.
+# $ sudo systemctl daemon-reload && sudo systemctl restart artiq_influxdb.service
+
+# INSTALLATION
+# 1. Install Nix
+# 2. Install ARTIQ via Nix.
+#    Follow the instructions here, stop at the ``nix-env`` commands:
+#       https://m-labs.hk/artiq/manual/installing.html#installing-via-nix-linux
+# 3. Clone the https://gitlab.com/umd-euriqa/euriqa-artiq.git repo
+# 4. Change variables below.
+#    Primarily, you'll need to change IP addresses, install paths (i.e. /home/euriqa -> /home/YOUR_USERNAME), InfluxDB settings.
+# 5. Copy the modified file to /etc/systemd/system/artiq_influxdb.service (for Ubuntu, might differ for you).
+#    This is automated by ./setup-symlinks.py
+# 6. Reload and enable (i.e. set to run on boot) the service:
+#    $ sudo systemctl daemon-reload
+#    $ sudo systemctl enable artiq_influxdb.service
+#    $ sudo systemctl restart artiq_influxdb.service
+# 7. Check that the service successfully started (it won't do anything unless artiq_master is running locally)
+#    $ sudo systemctl status artiq_influxdb.service
+#    Check that it says something like "Active: active (running)" in the first few lines
+
+[Unit]
+Description=ARTIQ InfluxDB Connector. Records ARTIQ datasets to the InfluxDB database.
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+# Wait 5 seconds between restarts
+RestartSec=5
+User=euriqa
+# Set where nix-shell searches for the channels in. Requires that nix-channel --update have been called once
+Environment=NIX_PATH="/home/euriqa/.nix-defexpr/channels"
+# Set environment variables: settings for connecting to InfluxDB & ARTIQ master
+Environment=EURIQA_DIR=/home/euriqa/git/euriqa-artiq
+Environment=MY_IP=192.168.78.152
+Environment=INFLUX_SERVER_IP=192.168.78.111
+Environment=INFLUX_PORT=8086
+Environment=INFLUX_DB_NAME=artiq
+Environment=INFLUX_DB_USER=editor
+Environment=INFLUX_DB_PASSWORD=LogiQYbIons
+# Command to actually start artiq_influxdb connector
+# Defines a nix shell with only artiq-comtools, then runs artiq_influxdb with our custom arguments
+ExecStart=/home/euriqa/.nix-profile/bin/nix-shell -p "with import <artiq-full> {}; python3.withPackages(ps: [ artiq-comtools ])" --run 'artiq_influxdb --server-master=$MY_IP --baseurl-db=http://$INFLUX_SERVER_IP:$INFLUX_PORT --user-db=$INFLUX_DB_USER --password-db=$INFLUX_DB_PASSWORD --database=$INFLUX_DB_NAME --pattern-file=$EURIQA_DIR/influx_db_patterns.cfg'
+
+[Install]
+WantedBy=multi-user.target

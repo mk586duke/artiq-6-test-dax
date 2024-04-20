@@ -1,0 +1,85 @@
+import numpy as np
+import networkx as nx
+
+cost_graph=[]
+
+def restriction(mapping):
+    return True
+
+
+class Seed:
+    def __init__(self,size):
+        self.mapping=range(size)
+        self.cost=calculate_cost(self.map)
+
+    def validate(self,rule):
+        #check if this seed complies with the restrictions
+        if rule(self.map):
+            return True
+        else:
+            return False
+
+    def mutate(self):
+        #mutate this seed
+        return
+
+    def calculate_cost(self):
+        #calcualte the cost of this seed
+
+        return value
+
+    def copy_mapping(self):
+        return
+
+
+class GraphOptimizer:
+
+    def __init__(self):
+        self.seed_stack=[]
+        self.head=0
+        self.tail=0
+        self.size=13
+        self.seed_limit=10000
+        self.birth_rate=5
+
+    def check_survive(self,new_seed,parent_seed):
+        return false
+
+    def breed(self,parent_seed):
+        new_seed=Seed(self.size)
+        new_seed.copy_mapping(parent_seed.mapping)
+        new_seed.mutate()
+        if self.survive(new_seed,parent_seed) and (self.tail<self.seed_limit):
+            self.tail+=1
+            self.seed_stack.append(new_seed)
+        return
+
+    def start(self):
+        while self.head<self.tail:
+            self.head+=1
+            for i in range(self.birth_rate):
+                self.breed(self.seed_stack[head])
+
+    def best(self):
+        best_seed=self.seed_stack[0]
+        for i in seed_stack:
+            if seed_stack[i].cost<best_seed.cost:
+                best_seed=seed_stack[i]
+
+        return best_seed
+
+    def initialize(self):
+        self.seed_stack = []
+        self.head = 0
+        self.tail = 0
+        for i in range(10):
+            self.tail+=1
+            self.seed_stack.append(Seed(self.size))
+
+    def optimize(self):
+        self.initialize()
+        self.start()
+        best_seed=self.best()
+        print(best_seed.cost)
+        return best_seed.mapping
+

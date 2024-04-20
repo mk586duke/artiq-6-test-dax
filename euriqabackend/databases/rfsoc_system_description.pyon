@@ -1,0 +1,130 @@
+[
+    {
+        "index": 0,
+        "ip_address": "192.168.83.102",
+        "ip_port": 50052,
+        "has_global_output": True,
+        "global_output_first": True,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+        "initialization_options": {
+            "output_tones": {
+                # turn on the frequency feedback for the individual beams, NOT global.
+                "frequency_feedback_global": True,
+                "harmonic":-1,
+                "frequency_feedback_individuals": False,
+                "enable_all": True,
+                "sync_all": False
+            },
+            "frequency_feedback": {
+                "enable": True,
+                "setpoint_frequency": 140.0e6,
+                "nco_mixer_frequency": 0.0,
+                "phase_offset_rad": 0.0,
+                "gain_pid": {
+                    "proportional": 1e6,
+                    "integral": 2e3,
+                    "derivative": 0,
+                },
+                "harmonic_divider": 1,
+                "threshold": {
+                    "lock_level": 29,
+                    "input_level": 5,
+                }
+            },
+        },
+    },
+    {
+        "index": 1,
+        "ip_address": "192.168.83.103",
+        "ip_port": 50052,
+        "has_global_output": False,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+        "initialization_options": {
+            "output_tones": {
+                # turn on the frequency feedback for the individual beams, NOT global.
+                "frequency_feedback_individuals": False,
+                "sync_all": False
+            },
+            "frequency_feedback": {
+                "enable": False,
+                "setpoint_frequency": 140.0e6,
+                "nco_mixer_frequency": 0.0,
+                "phase_offset_rad": 0.0,
+                "gain_pid": {
+                    "proportional": 1e6,
+                    "integral": 2e3,
+                    "derivative": 0,
+                },
+                "harmonic_divider": 1,
+                "threshold": {
+                    "lock_level": 26,
+                    "input_level": 5,
+                }
+            },
+        },
+    },
+    {
+        "index": 2,
+        "ip_address": "192.168.83.104",
+        "ip_port": 50052,
+        "has_global_output": False,
+        "num_outputs": 8,
+        "num_tones_per_output": 2,
+        "initialization_options": {
+            "output_tones": {
+                # turn on the frequency feedback for the individual beams, NOT global.
+                "frequency_feedback_individuals": False,
+                "sync_all": False
+            },
+            "frequency_feedback": {
+                "enable": False,
+                "setpoint_frequency": 140.0e6,
+                "nco_mixer_frequency": 0.0,
+                "phase_offset_rad": 0.0,
+                "gain_pid": {
+                    "proportional": 1e6,
+                    "integral": 2e3,
+                    "derivative": 0,
+                },
+                "harmonic_divider": 1,
+                "threshold": {
+                    "lock_level": 26,
+                    "input_level": 5,
+                }
+            },
+        },
+    },
+    {
+         "index": 3,
+         "ip_address": "192.168.83.105",
+         "ip_port": 50052,
+         "has_global_output": False,
+         "num_outputs": 8,
+         "num_tones_per_output": 2,
+         "initialization_options": {
+             "output_tones": {
+                 # turn on the frequency feedback for the individual beams, NOT global.
+                 "frequency_feedback_individuals": False,
+                 "sync_all": False
+             },
+             "frequency_feedback": {
+                 "enable": False,
+                 "setpoint_frequency": 140.0e6,
+                 "nco_mixer_frequency": 0.0,
+                 "phase_offset_rad": 0.0,
+                 "gain_pid": {
+                     "proportional": 1e6,
+                     "integral": 2e3,
+                     "derivative": 0,
+                 },
+                 "harmonic_divider": 1,
+                 "threshold": {
+                     "lock_level": 26,
+                     "input_level": 5,
+                 }
+             },
+         },
+     },
+]

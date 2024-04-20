@@ -1,0 +1,86 @@
+From 398a7e34653bc95bf7b349586ccb3482b71141fd Mon Sep 17 00:00:00 2001
+From: henrydeluo <henrydluo@gmail.com>
+Date: Thu, 28 Mar 2024 16:53:16 -0400
+Subject: [PATCH] Work around artiq bug
+
+---
+ qiskit/circuit/classicalfunction/boolean_expression.py    | 7 +++++--
+ .../classicalfunction/classical_function_visitor.py       | 5 ++++-
+ qiskit/circuit/classicalfunction/classicalfunction.py     | 7 +++++--
+ qiskit/circuit/classicalfunction/utils.py                 | 8 +++++---
+ 4 files changed, 19 insertions(+), 8 deletions(-)
+
+diff --git a/qiskit/circuit/classicalfunction/boolean_expression.py b/qiskit/circuit/classicalfunction/boolean_expression.py
+index a639f1404..ac6b74ec9 100644
+--- a/qiskit/circuit/classicalfunction/boolean_expression.py
++++ b/qiskit/circuit/classicalfunction/boolean_expression.py
+@@ -15,8 +15,11 @@
+ from os.path import basename, isfile
+ from typing import Callable, Optional
+ 
+-from tweedledum import BitVec, BoolFunction
+-from tweedledum.synthesis import pkrm_synth
++try:
++    from tweedledum import BitVec, BoolFunction
++    from tweedledum.synthesis import pkrm_synth
++except:
++    pass
+ 
+ from qiskit.circuit import QuantumCircuit
+ from .classical_element import ClassicalElement
+diff --git a/qiskit/circuit/classicalfunction/classical_function_visitor.py b/qiskit/circuit/classicalfunction/classical_function_visitor.py
+index 51bfdb6be..e978c9e18 100644
+--- a/qiskit/circuit/classicalfunction/classical_function_visitor.py
++++ b/qiskit/circuit/classicalfunction/classical_function_visitor.py
+@@ -17,7 +17,10 @@ This module is used internally by ``qiskit.transpiler.classicalfunction.Classica
+ import ast
+ import _ast
+ 
+-from tweedledum.classical import LogicNetwork
++try:
++    from tweedledum.classical import LogicNetwork
++except:
++    pass
+ 
+ from .exceptions import ClassicalFunctionParseError, ClassicalFunctionCompilerTypeError
+ 
+diff --git a/qiskit/circuit/classicalfunction/classicalfunction.py b/qiskit/circuit/classicalfunction/classicalfunction.py
+index 641052cc2..1bf27bb92 100644
+--- a/qiskit/circuit/classicalfunction/classicalfunction.py
++++ b/qiskit/circuit/classicalfunction/classicalfunction.py
+@@ -15,8 +15,11 @@
+ import ast
+ from typing import Callable, Optional
+ 
+-from tweedledum.classical import simulate
+-from tweedledum.synthesis import pkrm_synth
++try:
++    from tweedledum.classical import simulate
++    from tweedledum.synthesis import pkrm_synth
++except:
++    pass
+ 
+ from qiskit.circuit import QuantumCircuit, QuantumRegister
+ from qiskit.exceptions import QiskitError
+diff --git a/qiskit/circuit/classicalfunction/utils.py b/qiskit/circuit/classicalfunction/utils.py
+index 14c503785..7411dd586 100644
+--- a/qiskit/circuit/classicalfunction/utils.py
++++ b/qiskit/circuit/classicalfunction/utils.py
+@@ -12,9 +12,11 @@
+ 
+ """Internal utils for Classical Function Compiler"""
+ 
+-from tweedledum.ir import Qubit
+-from tweedledum.passes import parity_decomp
+-
++try:
++    from tweedledum.ir import Qubit
++    from tweedledum.passes import parity_decomp
++except:
++    pass
+ 
+ from qiskit.circuit import QuantumCircuit
+ from qiskit.circuit.library.standard_gates import (
+-- 
+2.34.1
+

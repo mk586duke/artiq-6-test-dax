@@ -1,0 +1,449 @@
+{
+    "comments": "Calibrations for gates & general RF waveforms. Values can be composed of other values (see ``frequencies.individual_carrier_frequency``), or import external (e.g. dataset) values (see ``frequencies.microwave_frequency``).",
+    "frequencies": {
+        "comments": "",
+        "23":{
+            "idle_stark_shifts": {
+                "value": [34,34,36,33,35,32,30,28,26,25,24,24,19,19,19,19,19,19,19,19,22,17,17],
+                "unit": "Hz",
+                "date": "2021-04-21T00:00:00-04:00",
+                "comments": ""
+            }
+        },
+        "idle_stark_shift": {
+            "value": 15.48,
+            "unit": "Hz",
+            "date": "2021-04-21T00:00:00-04:00",
+            "comments": ""
+        },
+        "individual_frequency": {
+            "value": 57.000E+6,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": ""
+        },
+        "microwave_frequency": {
+            "type": "dataset",
+            "unit": "Hz",
+            "key": "global.Ion_Freqs.MW_Freq"
+        },
+        "repetition_rate_setpoint": {
+            "value": 82.62945293E+6,
+            "unit": "Hz",
+            "date": "2021-01-11T00:00:00-04:00",
+            "comments": ""
+        },
+        "feedforward_frequency": {
+            "value": 140.000E+6,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": "Frequency that the feedforward RF chain is centered at."
+        },
+        "individual_carrier_frequency": {
+            "type": "calculated",
+            "unit": "Hz",
+            "addends": [
+                {
+                    "key": "frequencies.feedforward_frequency.value",
+                    "scale": 1.0
+                },
+                {
+                    "key": "frequencies.individual_frequency.value",
+                    "scale": 1.0
+                }
+            ],
+            "products": [],
+            "comments": "Default frequency for the individual carrier. Qubit frequencies are the difference between this and the global_carrier_frequency, times some multiple."
+        },
+        "global_carrier_frequency": {
+            "type": "calculated",
+            "unit": "Hz",
+            "addends": [
+                {
+                    "key": "frequencies.repetition_rate_setpoint.value",
+                    "scale": 1.0
+                },
+                {
+                    "key": "frequencies.individual_frequency.value",
+                    "scale": 1.0
+                },
+                {
+                    "key": "frequencies.microwave_frequency.value",
+                    "scale": 1.0
+                },
+                {
+                    "key": "frequencies.idle_stark_shift.value",
+                    "scale": 1.0
+                }
+            ],
+            "products": [],
+            "comments": "Calculate the carrier frequency based on the repetition rate, individual frequency, microwave frequency, and idle stark shift"
+        },
+        "phase_insensitive": {
+            "center_frequency_1_qubit": {
+                "value": 57.000E+6,
+                "unit": "Hz",
+                "date": "2020-06-10T00:00:00-04:00",
+                "comments": ""
+            },
+            "center_frequency_2_qubit": {
+                "value": 57.000E+6,
+                "unit": "Hz",
+                "date": "2020-06-10T00:00:00-04:00",
+                "comments": ""
+            }
+        }
+    },
+    "delays": {
+        "global_aom_to_individual_aom": {
+            "value": 0.82E-6,
+            "unit": "s",
+            "date": "2022-05-12T20:10:00-04:00",
+            "comments": "Due to large distance from electrodes to where the global beam travels through the crystal."
+        }
+    },
+    "rabi": {
+        "stark_shift": {
+            "value": 0.0,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": ""
+        },
+        "maximum_frequency_individual": {
+            "type": "dataset",
+            "unit": "Hz",
+            "scale": 1e6,
+            "key": "global.AWG.Rabi_max",
+            "comment": "The maximum rabi frequency that the system can/should output, at full power, on the individual channels. This should be on the order of 1 MHz"
+        },
+        "global_amplitude_single_tone": {
+            "type": "dataset",
+            "unit": "arb",
+            "key": "global.RFSOC.amplitude.global_single_tone_amplitude",
+            "comment": "Nominal amplitude of the global channel when playing a single output tone. Measured using a photodiode to have same power during sideband-cooling & circuit running on the global beam, to prevent "
+        },
+        "global_amplitude_two_tone": {
+            "type": "dataset",
+            "unit": "arb",
+            "key": "global.RFSOC.amplitude.global_dual_tone_amplitude",
+            "comment": "Same as 'global_amplitude_single_tone', but when two output tones are being played."
+        },
+        "pi_time_individual": {
+            "type": "dataset",
+            "unit": "s",
+            "key": "global.RFSOC.rabi_pi_time_individual",
+            "comment": "This is a vector (list) of values. The left-most value corresponds to the most-negative ion index (i.e. left-most) in the system. The Pi time is used for calibrating the amplitude of a given pulse, WITHOUT any AOM nonlinearity correction applied."
+        }
+    },
+    "sk1_square": {
+        "individual_rabi_frequency": {
+            "value": 200e3,
+            "unit": "Hz",
+            "date": "2022-06-01T00:00:00-04:00",
+            "comments": ""
+        },
+        "stark_shift": {
+            "value": 0.0,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": ""
+        },
+        "pi_time_multiplier": {
+            "value": 1.0,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": ""
+        }
+    },
+    "sk1_gaussian": {
+        "individual_rabi_frequency": {
+            "value": 200e3,
+            "unit": "Hz",
+            "date": "2022-06-01T00:00:00-04:00",
+            "comments": ""
+        },
+        "sub_pulse_duration": {
+            "value": 26e-6,
+            "unit": "s",
+            "date": "2022-06-01T00:00:00-04:00",
+            "comments": ""
+        },
+        "rotation_pulse_duration": {
+            "type": "dataset",
+            "unit": "s",
+            "key": "global.AWG.SK1_AM.rotation_pulse_length_SK1_AM"
+        },
+        "correction_pulse_1_duration": {
+            "type": "dataset",
+            "unit": "s",
+            "key": "global.AWG.SK1_AM.correction_pulse_1_length_SK1_AM"
+        },
+        "correction_pulse_2_duration": {
+            "type": "dataset",
+            "unit": "s",
+            "key": "global.AWG.SK1_AM.correction_pulse_2_length_SK1_AM"
+        },
+        "stark_shift": {
+            "value": 0.0,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": ""
+        },
+        "phase_correction": {
+            "value": -0.025,
+            "unit": "radians",
+            "date": "2020-11-28T00:00:00-04:00",
+            "comments": ""
+        },
+        "pi_time_multiplier": {
+            "value": 1.0,
+            "unit": "Hz",
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": ""
+        },
+        "comments": "Settings for AM (gaussian-shaped) SK1 gates. Phase correction is applied half before the SK1 gate and half after, as a software RZ gate (shifting clock phase)."
+    },
+    "gate_tweaks": {
+        "amplitude_feedforward_step" : {
+            "value": 0.14,
+            "unit": "",
+            "date": "2023-07-03T00:00:00-04:00",
+            "comments": ""
+        },
+        "sideband_amplitude_imbalance": {
+            "type": "dataset",
+            "unit": "",
+            "key": "global.gate_tweak.sideband_amplitude_imbalance",
+            "comments": "1.0 = balanced"
+        },
+        "motional_frequency_offset": {
+            "type": "dataset",
+            "unit": "Hz",
+            "key": "global.gate_tweak.motional_frequency_adjust"
+        },
+        "comments": ""
+    },
+    "aom_saturation": {
+        "individual": {
+            "value": [
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                0.54,
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                1.4,
+                1.4
+            ],
+            "unit": "",
+            "list_to_array": true,
+            "date": "2020-06-10T00:00:00-04:00",
+            "comments": "32-channel individual AOM nonlinearity calibrations. From nonlinearity calibration on 2019-07-17. Uncalibrated values show as 1.4"
+        },
+        "global_aom": {
+            "value": 1.4,
+            "unit": "",
+            "date": "2020-01-01T00:00:00-04:00",
+            "comment": "Currently uncalibrated. Global AOM nonlinearity compensation parameter. See individual for more details. Named differently b/c global is a reserved keyword in Python"
+        }
+    },
+    "chain_radial_modes": {
+        "comments": "The frequencies of the radial modes of a chain. Divided into nominal (i.e. desired), and measured, which take into account any charging/voltage environment issues. Should be sorted from least to greatest, in terms of absolute detuning from carrier. Keys are # of ions in the chain.",
+        "1":{
+            "nominal": {
+                "value": [3066762.388289973],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-10-27T10:15:00-04:00",
+                "comments": "Nominal gate modes for 1 ion chain with positive QZY"
+            },
+            "freq_offset":{"value":4e2,"unit": "Hz","date": "2022-08-18T10:15:00-04:00"},
+            "sideband_cooling_mode_indices": {
+                "value":  [[ 0],
+                [0]],
+                "list_to_array": true,
+                "unit": "None",
+                "date": "2022-10-27T10:15:00-04:00",
+                "comments": "This is a 1 ion configuration with positive QZY."
+            },
+            "rel_amp":{"value":[[0.35],
+            [0.35]],"unit": "None",
+            "date": "2022-10-27T10:15:00-04:00"}
+        },
+        "3": {
+            "nominal": {
+                "value": [2.8127e6, 2.939e6, 3.027e6],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-06-22T10:15:00-04:00",
+                "comments": "Nominal gate modes for 3 ion chain. Designed for testing Or's N-body gate. Measured at ind amplitude of 0.01 and global of 0.45."
+            },
+            "measured": {
+                "value": [2.816e6, 2.939e6, 3.027e6],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-06-22T10:15:00-04:00",
+                "comments": "Nominal gate modes for 3 ion chain. Designed for testing Or's N-body gate.Measured at ind amplitude of 0.01 and global of 0.45"
+            },
+            "freq_offset":{"value":0e4,"unit": "Hz","date": "2022-08-18T10:15:00-04:00"},
+            "sideband_cooling_mode_indices": {
+                "value": [1, 0, 2],
+                "list_to_array": true,
+                "unit": "None",
+                "date": "2022-06-22T10:15:00-04:00",
+                "comments": "Assigns the middle ion to the 0th mode for cooling"
+            },
+            "rel_amp":{"value":[0.5, 0.5, 0.35],"unit": "None",
+            "date": "2022-08-18T10:15:00-04:00"}
+        },
+        "15":{
+            "nominal": {
+                "value": [3070048.73524628, 3064839.08031566, 3045704.33571669, 3026737.34956669,
+                3004527.34463414, 2980298.46599717, 2954459.87603299, 2927794.27904781,
+                2900414.67561256, 2873181.29520507, 2846469.34035735, 2821479.17356689,
+                2799287.44456316, 2778060.57268782, 2770872.01544106],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-08-18T10:15:00-04:00",
+                "comments": "Nominal gate modes for 15 ion chain"
+            },
+            "freq_offset":{"value":4e4,"unit": "Hz","date": "2022-08-18T10:15:00-04:00"},
+            "sideband_cooling_mode_indices": {
+                "value":  [[0,6,5,0,9,13,2,10,12,14,3,8,1,7,0],[0,7,10,1,13,3,9,12,2,11,0,4,5,8,0],[0,0,0,0,0,1,2,0,1,2,0,0,1,0,0]],
+                "list_to_array": true,
+                "unit": "None",
+                "date": "2022-08-18T10:15:00-04:00",
+                "comments": ""
+            },
+            "rel_amp":{"value":[[2.0, 0.55, 0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,2.0],
+            [2.0, 0.55, 0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,2.0],
+            [2.0, 0.75, 0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,2.0]],"unit": "None",
+            "date": "2022-08-18T10:15:00-04:00"}
+        },
+        "-15":{
+            "nominal": {
+                "value": [3316074.330524986, 3308065.24586645, 3292425.936181505, 3274501.9149111533, 3254047.4874953777, 3231628.07454409, 3207977.729667793, 3183137.59517497, 3158245.864205615, 3132777.87621778, 3108576.434284211, 3085141.727153852, 3064813.692579734, 3045759.195886557, 3038298.0792087787],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-08-18T10:15:00-04:00",
+                "comments": "Nominal gate modes for 15 ion chain with negative QZY"
+            },
+            "freq_offset":{"value":4e4,"unit": "Hz","date": "2022-08-18T10:15:00-04:00"},
+            "sideband_cooling_mode_indices": {
+                "value":  [[0,6,5,0,9,13,2,10,12,14,3,8,1,7,0],[0,7,10,1,13,3,9,12,2,11,0,4,5,8,0],[0,0,0,0,0,1,2,0,1,2,0,0,1,0,0]],
+                "list_to_array": true,
+                "unit": "None",
+                "date": "2022-08-18T10:15:00-04:00",
+                "comments": ""
+            },
+            "rel_amp":{"value":[[2.0, 0.55, 0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,2.0],
+            [2.0, 0.55, 0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,0.55,2.0],
+            [2.0, 0.75, 0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,2.0]],"unit": "None",
+            "date": "2022-08-18T10:15:00-04:00"}
+        },
+        "23":{
+            "nominal": {
+                "value": [3066500.0, 3063500.0, 3055050.0, 3045600.0, 3034400.0, 3021800.0, 3008000.0, 2993300.0, 2977800.0,
+                2961500.0, 2944700.0, 2927500.0, 2909900.0, 2892200.0, 2874400.0, 2856850.0, 2839750.0, 2823250.0,
+                2807750.0, 2793500.0, 2782050.0, 2768500.0, 2764500.0],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-09-07T10:15:00-04:00",
+                "comments": "Nominal gate modes for 23 ions chain with positive QZY"
+            },
+
+            "freq_offset":{"value":17e3,"unit": "Hz","date": "2022-08-18T10:15:00-04:00"},
+            "sideband_cooling_mode_indices": {
+                "value":  [[ 14, 18, 20, 12,  7, 0,  3, 0,  5, 21,  2, 22, 13, 19,10, 0,  6, 2, 11,  8,  9, 17, 15],
+                [1, 17,  9,  4, 0, 13, 1,  8,  0, 19, 15, 16, 22, 21, 1, 11,  3, 10, 0, 12, 20, 18, 14]],
+                "list_to_array": true,
+                "unit": "None",
+                "date": "2022-08-18T10:15:00-04:00",
+                "comments": "This is a 23 ions configuration with positive QZY. Ion mapping is not optimized"
+            },
+            "rel_amp":{"value":[[0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35],
+            [0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35]],"unit": "None",
+            "date": "2022-08-18T10:15:00-04:00"}
+        },
+        "-23":{
+            "nominal": {
+                "value": [3310611.561213062, 3308300.081436943, 3301417.243659631, 3294283.0484994124, 3285940.43932846, 3276487.025547313, 3266104.8598212074, 3255139.6393761127, 3243181.2881589597, 3230831.295429133, 3218053.3968203827, 3204704.7054158207, 3190930.339187185, 3177211.128126884, 3163037.7172118095, 3149003.0637987307, 3134942.5259851213, 3121193.5262591615, 3107607.7188454107, 3094483.5621516514, 3081880.451193315, 3070461.2793177157, 3060529.5937670907, 3050099.4786230824, 3045989.166878594, 3030533.866676525, 3025973.6845727423],
+                "list_to_array": true,
+                "unit": "Hz",
+                "date": "2022-09-07T10:15:00-04:00",
+                "comments": "Nominal gate modes for 27 ions chain with negative QZY"
+            },
+            "freq_offset":{"value":4e2,"unit": "Hz","date": "2022-08-18T10:15:00-04:00"},
+            "sideband_cooling_mode_indices": {
+                "value":  [[ 14, 18, 20, 12,  7, 0,  3, 0,  5, 21,  2, 22, 13, 19,10, 0,  6, 2, 11,  8,  9, 17, 15],
+                [1, 17,  9,  4, 0, 13, 1,  8,  0, 19, 15, 16, 22, 21, 1, 11,  3, 10, 0, 12, 20, 18, 14]],
+                "list_to_array": true,
+                "unit": "None",
+                "date": "2022-08-18T10:15:00-04:00",
+                "comments": "This is a 27 ions configuration with -QZY for Qsim purposes only"
+            },
+            "rel_amp":{"value":[[0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35],
+            [0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35]],"unit": "None",
+            "date": "2022-08-18T10:15:00-04:00"}
+        }
+
+    },
+    "gate_solutions": {
+        "comments": "Gate solutions vary per number of ions, and between every ions. Instead of recording all those values here, they're computed by Laird's solution generator, and stored in files in a directory. We just record the directory here (relative to some master directory). The master directory will be appended to the NAS directory, so it should NOT start with a '/'.",
+        "solutions_top_path": "CompactTrappedIonModule/Data/gate_solutions/",
+        "15": "2022_6_30/15ions_interpolated_127us.h5",
+        "23": "2023_02_16/23ions_interpolated.h5",
+        "25": "2020_04_28/25ions_interpolated_500us.h5"
+    },
+    "other": {
+        "number_of_ions": {
+            "type": "dataset",
+            "unit": "ions",
+            "key": "global.AWG.N_ions",
+            "comment": "Number of ions currently in the system"
+        },
+        "individual_aom_channel_count": {
+            "value": 32,
+            "unit": "channels",
+            "date": "2018-01-01T00:00:00-04:00",
+            "comment": "Number of individual AOM channels in the system. Used to avoid hard-coding the number of channels in various places throughout the code."
+        },
+        "center_aom_index": {
+            "value": 16,
+            "unit": "channel",
+            "date": "2018-01-01T00:00:00-04:00",
+            "comment": "Index of the center AOM channel (0-indexed, so this is the N+1th value in a list). Useful for converting b/w center- and 0-indexed ion numbering."
+        },
+        "center_pmt_channel": {
+            "value": 8,
+            "unit": "channel",
+            "date": "2019-01-01T00:00:00-04:00",
+            "comment": "The center PMT channel (PMTs are 1-indexed, so the list index still needs calculated."
+        },
+        "comment": "Catch-all hierarchy for other useful values that we want access to."
+    }
+}

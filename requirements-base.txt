@@ -1,0 +1,14 @@
+click
+dax
+h5py
+more_itertools
+numdifftools
+numpy
+pandas
+prettytable
+pulsecompiler
+pyyaml
+sipyco
+scipy
+statsmodels
+uncertainties

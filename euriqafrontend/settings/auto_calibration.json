@@ -1,0 +1,335 @@
+{
+    "comments": "Settings for EURIQA calibrations to customize the ARTIQ experiments that they're based on. Top-level keys are the names of experiments, and keys below are the arguments to change.",
+    "DX": {
+        "use_RFSOC": true,
+        "scan_range": {
+            "npoints": 21,
+            "randomize": false,
+            "seed": 1592363950,
+            "start": -2,
+            "stop": 2,
+            "ty": "RangeScan"
+        },
+        "lost_ion_monitor": false,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.035,
+        "rabi_time": 5e-6,
+        "auto_reload": true,
+        "Update Swap Lines": false,
+        "do_sbc": false
+    },
+    "DZ": {
+        "use_RFSOC": true,
+        "scan_range": {
+            "npoints": 15,
+            "start": 400,
+            "stop": 600,
+            "ty": "RangeScan"
+        },
+        "lost_ion_monitor": false,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.03,
+        "rabi_time": 20e-6,
+        "Update Swap Lines": false,
+        "do_sbc": true
+    },
+    "MW_Ramsey": {
+        "use_RFSOC": false,
+        "scan_range": {
+            "npoints": 17,
+            "randomize": false,
+            "seed": 1592363950,
+            "start": 0,
+            "stop": 160e-3,
+            "ty": "RangeScan"
+        },
+        "num_shots" : 100,
+        "num_pulses" : 1,
+        "pi_time" : 3.4e-3,
+        "detuning" : 10,
+        "analysis_phase" : 90,
+        "do_sbc" : false,
+        "lost_ion_monitor" : false,
+        "auto_reload_when_lost_ion" : false,
+        "Update Swap Lines": false
+    },
+    "X2_Offset": {
+        "use_RFSOC": true,
+        "do_calib": false,
+        "lost_ion_monitor": false,
+        "scan_range": {
+            "npoints": 13,
+            "randomize": true,
+            "seed": 1592363950,
+            "start": -60e3,
+            "stop": 60e3,
+            "ty": "RangeScan"
+        },
+        "num_shots" : 100,
+        "rabi_time" : 80e-6,
+        "rabi_global_amplitude": 0.3,
+        "rabi_individual_amplitude": 0.015,
+        "do_sbc": true,
+        "base_scan_scale" : 2,
+        "Update Swap Lines": false
+    },
+    "QZY": {
+        "use_RFSOC": true,
+        "do_calib": false,
+        "lost_ion_monitor": false,
+        "scan_range": {
+            "npoints": 16,
+            "randomize": true,
+            "seed": 1592363940,
+            "start": -40e3,
+            "stop": 40e3,
+            "ty": "RangeScan"
+        },
+        "rabi_time" : 80e-6,
+        "base_scan_scale" : 2,
+        "rabi_global_amplitude": 0.3,
+        "rabi_individual_amplitude": 0.02,
+        "Update Swap Lines": false
+    },
+    "IndPiezoY": {
+        "use_RFSOC": true,
+        "do_calib": false,
+        "lost_ion_monitor": false,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.04,
+        "rabi_time": 4e-6,
+        "set_globals": true,
+        "Update Swap Lines": false
+    },
+    "Autoload_mixed_23": {
+        "isotope_sequence_decimal": 4327457, 
+        "load wait time": 0.3,
+        "load qubit wait time": 0.2,
+        "cool wait time": 2,
+        "inspection detection window" : 0.01,
+        "max # load attempts" : 500,
+        "Oven Preheat Time" : 5,
+        "Use Global Beam During Cooling" : false,
+        "Turn oven OFF after experiment" : false,
+        "Dump all ions from trap before autoloading" : true,
+        "ion_present_counts" : 50,
+        "PMT Input String": "-3:19"
+    },
+    "Autoload_23": {
+        "lost_ion_monitor": false,
+        "load wait time": 0.3,
+        "cool wait time": 2,
+        "Oven Preheat Time" : 5,
+        "number of ions to load": 23,
+        "PMT Input String": "-3:19",
+        "Turn oven OFF after experiment" : false
+    },
+    "Autoload_1": {
+        "lost_ion_monitor": false,
+        "load wait time": 0.4,
+        "cool wait time": 0.500,
+        "Oven Preheat Time": 60
+    },
+    "CheckCenter23": {
+        "use_RFSOC": true,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.015,
+        "rabi_time": 10e-6,
+        "lost_ion_monitor": false,
+        "auto_reload": true,
+        "auto_reload_when_lost_ion": true,
+        "do_calib":false,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": false
+    },
+    "CheckCentermixed23": {
+        "use_RFSOC": true,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.015,
+        "rabi_time": 10e-6,
+        "lost_ion_monitor": false,
+        "auto_reload": false,
+        "auto_reload_when_lost_ion": false,
+        "do_calib":false,
+        "ramp_rf" : false,
+        "set_globals": true,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": false
+    },
+    "CheckCentermixed23_lowRF": {
+        "use_RFSOC": true,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.015,
+        "rabi_time": 16e-6,
+        "lost_ion_monitor": false,
+        "auto_reload": false,
+        "auto_reload_when_lost_ion": false,
+        "do_calib":false,
+        "ramp_rf" : true,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": false
+    },
+    "Swap_Check": {
+        "presence_thresh_coolant" : 8,
+        "lost_ion_monitor" : false,
+        "ramp_rf" : true,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": true
+    },
+    "Edge_X4_Calibration": {
+
+    },
+    "X3": {
+        "scan_range": {
+            "npoints": 19,
+            "randomize": false,
+            "seed": 1592363950,
+            "start": -1.25,
+            "stop": 1.5,
+            "ty": "RangeScan"
+        },
+        "num_shots": 125,
+        "lost_ion_monitor": false,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.015,
+        "rabi_time": 10e-6,
+        "do_calib":false,
+        "do_sbc":true,
+        "auto_reload_when_lost_ion": false,
+        "PMT Input String": "-1:17",
+        "Update Swap Lines": false
+    },
+    "QXZ": {
+        "scan_range": {
+            "npoints": 11,
+            "randomize": false,
+            "seed": 1592363950,
+            "start": -0.03,
+            "stop": 0.03,
+            "ty": "RangeScan"
+        },
+        "num_shots": 200,
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "do_calib":false,
+        "do_sbc":true,
+        "rabi_global_amp": 0.63,
+        "rabi_ind_amp": 0.025,
+        "rabi_time": 200e-6,
+        "Update Swap Lines": false
+    },
+    "QXZ_Prep": {
+        "scan_range": {
+            "npoints": 30,
+            "randomize": false,
+            "seed": 1592363950,
+            "start": 2.897e6,
+            "stop": 2.913e6,
+            "ty": "RangeScan"
+        },
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "do_calib":false,
+        "rabi_global_amp": 0.63,
+        "Update Swap Lines": false,
+        "rabi_ind_amp": 0.025,
+        "rabi_time": 200e-6
+    },
+    "X4": {
+        "scan_range": {
+            "npoints": 21,
+            "randomize": false,
+            "seed": 1592363950,
+            "start": -40e3,
+            "stop": 40e3,
+            "ty": "RangeScan"
+        },
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "rabi_time" : 0.0001,
+        "rabi_global_amplitude" : 0.8,
+        "rabi_individual_amplitude" : 0.2,
+        "base_scan_scale" : 2,
+        "do_calib": false,
+        "Update Swap Lines": false
+    },
+    "Modes_Scan_23ions": {
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "do_SBC": false,
+        "rabi_ind_amp": 0.0032,
+        "PMT Input String": "-1:17"
+    },
+    "PrecisionModeScan": {
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": false,
+        "do_SBC": false,
+        "rabi_ind_amp": 0.0032,
+        "PMT Input String": "-1:17",
+        "Update Swap Lines": false
+    },
+    "RFSOC_amp_calib": {
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "scan_range": {
+            "npoints": 13,
+            "randomize": false,
+            "start": 0.05e-6,
+            "stop": 200e-6,
+            "ty": "RangeScan"
+        },
+        "rabi_global_amp" : 0.624,
+        "lock_x_piezo":false,
+        "clear_old_pi_times": false,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": false
+    },
+    "RFSOC_amp_calib_1": {
+        "lost_ion_monitor": false,
+        "auto_reload_when_lost_ion": false,
+        "scan_range": {
+            "npoints": 13,
+            "randomize": false,
+            "start": 0.05e-6,
+            "stop": 200e-6,
+            "ty": "RangeScan"
+        },
+        "rabi_global_amp" : 0.624,
+        "lock_x_piezo":false,
+        "clear_old_pi_times": false,
+        "PMT Input String": "8",
+        "Update Swap Lines": false
+    },
+    "XX_Amp": {
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "equil_loops" : 5,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": false
+    },
+    "XX_StarkShift": {
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "N_echo_blocks": 5,
+        "Update Swap Lines": false
+    },
+    "XX_Fidelity": {
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "PMT Input String": "-3:19",
+        "Update Swap Lines": false
+    },
+    "XX_Imbalance": {
+        "scan_range": {
+            "npoints": 16,
+            "randomize": false,
+            "start": -0.02,
+            "stop": 0.02,
+            "ty": "RangeScan"
+        },
+        "lost_ion_monitor": true,
+        "auto_reload_when_lost_ion": true,
+        "N_echo_blocks": 5,
+        "Update Swap Lines": false
+    }
+}
